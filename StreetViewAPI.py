@@ -67,12 +67,12 @@ class StreetViewThread(threading.Thread):
     def run(self):
         for idx, coord in tuple(enumerate(self.coordinates))[:-3]:
             # -3 doesn't iterate through overlapping list. (for heading).
+            # It looks 3 coords ahead for smoother change of view angle.
             # I lose 3 coords, tiny sacrifice.
             try:
                 outfile = tempfile.NamedTemporaryFile(delete=False,
                                                       prefix=("{0:06}".format(self.pointindex + idx) + '__'))
                 outfile.close()
-
 
                 if self.driveby == "True":
                     heading = get_heading(coord, self.centercoord)
@@ -98,7 +98,7 @@ class StreetViewThread(threading.Thread):
 
 
 def streetview_thread(coordinates, driveby="False", centercoord=(0, 0), height=0.0):
-    NUMBEROFTHREADS = 20
+    NUMBEROFTHREADS = 20  # 20 is default number of threads "workers"
     slicedlist = [coordinates[i:i + (len(coordinates) // NUMBEROFTHREADS) + 3] for i in
                   range(0, len(coordinates), len(coordinates) // NUMBEROFTHREADS)]
     result_path = []
@@ -114,10 +114,7 @@ def streetview_thread(coordinates, driveby="False", centercoord=(0, 0), height=0
 
 
 def make_video(images, output_path, fps=16, size=(640, 480), is_color=True):
-    """
-    Create a video from a list of images.
-    """
-
+    """Makes video using xvid codec. Increase FPS for faster timelapse."""
     fourcc = cv2.VideoWriter_fourcc(*"XVID")
     vid = cv2.VideoWriter(output_path, fourcc, fps, size, is_color)
     for image in images:
@@ -133,6 +130,7 @@ def save_location():
         print("Invalid Path: " + outputlocation + "\nTry again")
         outputlocation = input("Where do you want to save this file?: \n")
     return outputlocation
+
 
 def construct_video():
     start = input('Input Origin: ')
@@ -155,11 +153,13 @@ def construct_video():
 
     make_video(imagelocations, os.path.join(outputlocation, outputname))
 
-# TODO:
-# IDEA: POINT AT INTERESTING OBJECT. IF COORDS ARE WITHIN THE RADIUS OF OBJECT POINT TO IT INSTEAD OF AHEAD OF VEHICLE.
+    # TODO:
+    # IDEA: POINT AT INTERESTING OBJECT. IF COORDS ARE WITHIN THE RADIUS OF OBJECT POINT TO IT INSTEAD OF AHEAD OF VEHICLE.
     # Better input correction and error handling.
-##Figure out how to USE JAVASCRIPT API TO CALL StreetViewService
-# cntower
-# 43.638891, -79.456817 Start
-# 43.683613, -79.361742 End
-# 43.642391, -79.387015 Tower
+    ##Figure out how to USE JAVASCRIPT API TO CALL StreetViewService
+    # Cool place to try:
+    # cntower
+    # 43.638891, -79.456817 Start
+    # 43.683613, -79.361742 End
+    # 43.642391, -79.387015 Tower
+    # Height: 0.55
