@@ -1,6 +1,8 @@
 import math
 def calculate_initial_compass_bearing(pointA, pointB):
     """
+    Author: jeromer
+    https://gist.github.com/jeromer/2005586
     Calculates the bearing between two points.
     The formulae used is the following:
         θ = atan2(sin(Δlong).cos(lat2),
