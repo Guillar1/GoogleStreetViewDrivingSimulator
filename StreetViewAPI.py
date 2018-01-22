@@ -127,6 +127,13 @@ def make_video(images, output_path, fps=16, size=(640, 480), is_color=True):
     cv2.destroyAllWindows()
 
 
+def save_location():
+    outputlocation = input("Where do you want to save this file?: \n")
+    while not os.path.exists(outputlocation):
+        print("Invalid Path: " + outputlocation + "\nTry again")
+        outputlocation = input("Where do you want to save this file?: \n")
+    return outputlocation
+
 def construct_video():
     start = input('Input Origin: ')
     end = input('Input Destination: ')
@@ -136,19 +143,21 @@ def construct_video():
         centercoord = tuple([float(i) for i in (input("Give object coordinate:")).split(",")])
         height = float(input("Give object height in km:"))
         outputname = input('Name of File: \n') + ".avi"
+        outputlocation = save_location()
         imagelocations = streetview_thread(build_coords(get_result(_build_directions_url(start, end))), driveby,
                                            centercoord, height)
     else:
         outputname = input('Name of File: \n') + ".avi"
+        outputlocation = save_location()
         imagelocations = streetview_thread(build_coords(get_result(_build_directions_url(start, end))))
 
     print(imagelocations)
-    # TODO:
-    # Better location input.
-    make_video(imagelocations, 'D://Video Output//' + outputname)
+
+    make_video(imagelocations, os.path.join(outputlocation, outputname))
 
 # TODO:
 # IDEA: POINT AT INTERESTING OBJECT. IF COORDS ARE WITHIN THE RADIUS OF OBJECT POINT TO IT INSTEAD OF AHEAD OF VEHICLE.
+    # Better input correction and error handling.
 ##Figure out how to USE JAVASCRIPT API TO CALL StreetViewService
 # cntower
 # 43.638891, -79.456817 Start
