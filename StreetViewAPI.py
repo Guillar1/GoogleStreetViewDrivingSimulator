@@ -145,21 +145,21 @@ def construct_video():
         imagelocations = streetview_thread(build_coords(get_result(_build_directions_url(start, end))), driveby,
                                            centercoord, height)
     else:
-        outputname = input('Name of File: \n') + ".avi"
+        print("Generating a drive time-lapse")
+        outputname = input('Please type in name of file: \n') + ".avi"
         outputlocation = save_location()
         imagelocations = streetview_thread(build_coords(get_result(_build_directions_url(start, end))))
 
-    print(imagelocations)
-
     make_video(imagelocations, os.path.join(outputlocation, outputname))
+    print("Video Generated Successfully at " + os.path.join(outputlocation, outputname))
 
-    # TODO:
-    # IDEA: POINT AT INTERESTING OBJECT. IF COORDS ARE WITHIN THE RADIUS OF OBJECT POINT TO IT INSTEAD OF AHEAD OF VEHICLE.
-    # Better input correction and error handling.
-    ##Figure out how to USE JAVASCRIPT API TO CALL StreetViewService
-    # Cool place to try:
-    # cntower
-    # 43.638891, -79.456817 Start
-    # 43.683613, -79.361742 End
-    # 43.642391, -79.387015 Tower
-    # Height: 0.55
+# TODO:
+# IDEA: POINT AT INTERESTING OBJECT. IF COORDS ARE WITHIN THE RADIUS OF OBJECT POINT TO IT INSTEAD OF AHEAD OF VEHICLE.
+# Better input correction and error handling.
+##Figure out how to USE JAVASCRIPT API TO CALL StreetViewService
+# Cool place to try:
+# cntower
+# 43.638891, -79.456817 Start
+# 43.683613, -79.361742 End
+# 43.642391, -79.387015 Tower
+# Height: 0.55
