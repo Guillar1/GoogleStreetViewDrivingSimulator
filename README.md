@@ -13,4 +13,4 @@ faster to fetch the images from the API. You can give the location in any format
 
 
 ## Youtube Video
-[![Google Street View Simulator Video](http://img.youtube.com/vi/no11fQL0wrg/0.jpg)](http://www.youtube.com/watch?v=no11fQL0wrg)
+[![Google Street View Simulator Video](http://img.youtube.com/vi/fAqOCsqNV9k/0.jpg)](http://www.youtube.com/watch?v=fAqOCsqNV9k)
