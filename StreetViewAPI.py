@@ -97,12 +97,13 @@ class StreetViewThread(threading.Thread):
 
 
 def streetview_thread(coordinates, driveby="False", centercoord=(0, 0), height=0.0):
-    NUMBEROFTHREADS = 20  # 20 is default number of threads "workers"
-    slicedlist = [coordinates[i:i + (len(coordinates) // NUMBEROFTHREADS) + 3] for i in
-                  range(0, len(coordinates), len(coordinates) // NUMBEROFTHREADS)]
+    NumberOfThreads = 20  # 20 is default number of threads "workers" unless the amount of images is less.
+    NumberOfThreads = len(coordinates) if NumberOfThreads < len(coordinates) else NumberOfThreads
+    slicedlist = [coordinates[i:i + (len(coordinates) // NumberOfThreads) + 3] for i in
+                  range(0, len(coordinates), len(coordinates) // NumberOfThreads)]
     result_path = []
     threads = []
-    for i in range(NUMBEROFTHREADS):
+    for i in range(NumberOfThreads):
         t = StreetViewThread(slicedlist[i], (len(slicedlist[0]) * i), centercoord, height, driveby)
         threads.append(t)
         t.start()
