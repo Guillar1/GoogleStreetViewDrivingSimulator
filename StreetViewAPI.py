@@ -9,7 +9,7 @@ from Calculations import calculate_initial_compass_bearing, calculate_pitch
 import cv2
 import threading
 
-GOOGLE_STREETVIEW_API_KEY = ''
+GOOGLE_STREETVIEW_API_KEY = 'AIzaSyBvUfiQg9vGkzKtfynP1G9CV2Ry539mriU'
 
 GOOGLE_MAPS_DIRECTIONS_API = 'https://maps.googleapis.com/maps/api/directions/json?'
 
@@ -98,7 +98,7 @@ class StreetViewThread(threading.Thread):
 
 def streetview_thread(coordinates, driveby="False", centercoord=(0, 0), height=0.0):
     NumberOfThreads = 20  # 20 is default number of threads "workers" unless the amount of images is less.
-    NumberOfThreads = len(coordinates) if NumberOfThreads < len(coordinates) else NumberOfThreads
+    NumberOfThreads = len(coordinates) if len(coordinates) < NumberOfThreads  else NumberOfThreads
     slicedlist = [coordinates[i:i + (len(coordinates) // NumberOfThreads) + 3] for i in
                   range(0, len(coordinates), len(coordinates) // NumberOfThreads)]
     result_path = []
