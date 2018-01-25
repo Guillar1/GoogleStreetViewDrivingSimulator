@@ -19,7 +19,6 @@ STREETVIEW_URL = ("http://maps.googleapis.com/maps/api/streetview?"
 
 def _build_directions_url(origin, destination) -> str:
     query_paramaters = [('origin', origin), ('destination', destination), ('key', GOOGLE_STREETVIEW_API_KEY)]
-    print(GOOGLE_MAPS_DIRECTIONS_API + urllib.parse.urlencode(query_paramaters))
     return GOOGLE_MAPS_DIRECTIONS_API + urllib.parse.urlencode(query_paramaters)
 
 
