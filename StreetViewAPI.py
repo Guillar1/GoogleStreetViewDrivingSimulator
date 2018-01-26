@@ -9,7 +9,7 @@ from Calculations import calculate_initial_compass_bearing, calculate_pitch
 import cv2
 import threading
 
-GOOGLE_STREETVIEW_API_KEY = 'AIzaSyBvUfiQg9vGkzKtfynP1G9CV2Ry539mriU'
+GOOGLE_STREETVIEW_API_KEY = ''
 
 GOOGLE_MAPS_DIRECTIONS_API = 'https://maps.googleapis.com/maps/api/directions/json?'
 
